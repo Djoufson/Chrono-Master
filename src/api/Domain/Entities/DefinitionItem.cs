@@ -8,11 +8,11 @@ public class DefinitionItem : Entity<DefinitionItemId>
     public DayOfWeek DayOfWeek { get; private set; }
     public TimeOnly StartTime { get; private set; }
     public TimeSpan Duration { get; private set; }
-    public PlanningDefinition Definition { get; private set; }
+    public Definition Definition { get; private set; }
 
     private DefinitionItem(
         DefinitionItemId id,
-        PlanningDefinition definition,
+        Definition definition,
         DayOfWeek dayOfWeek,
         TimeOnly startTime,
         TimeSpan duration) : base(id)
@@ -24,7 +24,7 @@ public class DefinitionItem : Entity<DefinitionItemId>
     }
 
     public static DefinitionItem CreateUnique(
-        PlanningDefinition definition,
+        Definition definition,
         DayOfWeek dayOfWeek,
         TimeOnly startTime,
         TimeSpan duration)

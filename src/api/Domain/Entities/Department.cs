@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Domain.Entities.Base;
 using Domain.ValueObjects;
 
@@ -8,6 +9,8 @@ public class Department : Entity<DepartmentId>
     public string Title { get; private set; }
     public string Code { get; private set; }
     public AcademicManager? Manager { get; private set; }
+    public ICollection<Course> Courses { get; set; } = new Collection<Course>();
+
     private Department(
         DepartmentId id,
         string title,
