@@ -1,7 +1,6 @@
-using Domain.Entities.Base;
 using Domain.ValueObjects;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Base;
 
 public abstract class User : Entity<UserId>
 {

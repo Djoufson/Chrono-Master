@@ -3,7 +3,7 @@ using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
-public class Planning : Entity<PlanningId>
+public sealed class Planning : Entity<PlanningId>
 {
     public Definition Definition { get; set; }
     public IReadOnlyList<Session> Sessions { get; private set; } = Array.Empty<Session>();

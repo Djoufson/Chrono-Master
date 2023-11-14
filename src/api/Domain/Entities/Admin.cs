@@ -1,9 +1,10 @@
+using Domain.Entities.Base;
 using Domain.Utilities;
 using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
-public class Admin : User
+public sealed class Admin : User
 {
     private Admin(
         UserId id,

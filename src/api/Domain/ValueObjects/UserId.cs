@@ -2,7 +2,7 @@ using Domain.ValueObjects.Base;
 
 namespace Domain.ValueObjects;
 
-public record UserId : ValueObject
+public sealed record UserId : ValueObject
 {
     private UserId(string value) : base(value)
     {

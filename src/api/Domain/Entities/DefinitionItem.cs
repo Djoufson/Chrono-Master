@@ -3,7 +3,7 @@ using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
-public class DefinitionItem : Entity<DefinitionItemId>
+public sealed class DefinitionItem : Entity<DefinitionItemId>
 {
     public DayOfWeek DayOfWeek { get; private set; }
     public TimeOnly StartTime { get; private set; }

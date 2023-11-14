@@ -3,7 +3,7 @@ using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
-public class Course : Entity<CourseId>
+public sealed class Course : Entity<CourseId>
 {
     public Planning? Planning { get; private set; }
     public Teacher? Teacher { get; private set; }

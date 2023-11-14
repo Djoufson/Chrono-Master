@@ -2,7 +2,7 @@ using Domain.ValueObjects.Base;
 
 namespace Domain.ValueObjects;
 
-public record Name : ValueObject
+public sealed record Name : ValueObject
 {
     public string FirstName { get; private init; }
     public string? LastName { get; private init; }

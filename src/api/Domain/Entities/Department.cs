@@ -4,7 +4,7 @@ using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
-public class Department : Entity<DepartmentId>
+public sealed class Department : Entity<DepartmentId>
 {
     public string Title { get; private set; }
     public string Code { get; private set; }

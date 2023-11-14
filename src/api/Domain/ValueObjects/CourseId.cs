@@ -2,4 +2,4 @@ using Domain.ValueObjects.Base;
 
 namespace Domain.ValueObjects;
 
-public record CourseId(Guid Id) : ValueObject(Id.ToString());
+public sealed record CourseId(Guid Id) : ValueObject(Id.ToString());

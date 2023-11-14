@@ -2,7 +2,7 @@ using Domain.ValueObjects.Base;
 
 namespace Domain.ValueObjects;
 
-public record Password : ValueObject
+public sealed record Password : ValueObject
 {
     private Password(string value) : base(value)
     {

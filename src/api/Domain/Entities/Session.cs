@@ -3,7 +3,7 @@ using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
-public class Session : Entity<SessionId>
+public sealed class Session : Entity<SessionId>
 {
     public Planning Planning { get; set; }
     public DateTime StartDateTime { get; set; }

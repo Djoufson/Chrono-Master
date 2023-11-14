@@ -1,9 +1,10 @@
+using Domain.Entities.Base;
 using Domain.Utilities;
 using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
-public class AcademicManager : User
+public sealed class AcademicManager : User
 {
     public Department Department { get; private set; }
     private AcademicManager(
