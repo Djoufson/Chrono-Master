@@ -5,42 +5,37 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231114132319_Initial Create")]
+    [Migration("20231114181240_Initial Create")]
     partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
 
             modelBuilder.Entity("Domain.Entities.Base.User", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -54,20 +49,20 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TeacherId")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("TotalHours")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -81,7 +76,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Definition", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -91,19 +86,19 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.DefinitionItem", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DayOfWeek")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("DefinitionId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.Property<TimeSpan>("Duration")
-                        .HasColumnType("interval");
+                        .HasColumnType("TEXT");
 
                     b.Property<TimeOnly>("StartTime")
-                        .HasColumnType("time without time zone");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -115,15 +110,15 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Department", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -133,13 +128,13 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Planning", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("CourseId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("DefinitionId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -156,7 +151,7 @@ namespace Infrastructure.Migrations
                     b.HasBaseType("Domain.Entities.Base.User");
 
                     b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("TEXT");
 
                     b.HasIndex("DepartmentId")
                         .IsUnique();
@@ -183,20 +178,21 @@ namespace Infrastructure.Migrations
                     b.OwnsOne("Domain.ValueObjects.Name", "Name", b1 =>
                         {
                             b1.Property<string>("UserId")
-                                .HasColumnType("text");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("FirstName")
                                 .IsRequired()
-                                .HasColumnType("text")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("FirstName");
 
                             b1.Property<string>("LastName")
-                                .HasColumnType("text")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("LastName");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
-                                .HasColumnType("text");
+                                .HasColumnType("TEXT")
+                                .HasColumnName("FullName");
 
                             b1.HasKey("UserId");
 
@@ -255,16 +251,16 @@ namespace Infrastructure.Migrations
                     b.OwnsMany("Domain.Entities.Session", "Sessions", b1 =>
                         {
                             b1.Property<Guid>("Id")
-                                .HasColumnType("uuid");
+                                .HasColumnType("TEXT");
 
                             b1.Property<TimeSpan>("Duration")
-                                .HasColumnType("interval");
+                                .HasColumnType("TEXT");
 
                             b1.Property<Guid>("PlanningId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("TEXT");
 
                             b1.Property<DateTime>("StartDateTime")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("TEXT");
 
                             b1.HasKey("Id");
 

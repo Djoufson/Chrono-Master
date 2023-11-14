@@ -15,7 +15,7 @@ namespace Infrastructure.Migrations
                 name: "Definitions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,9 +26,9 @@ namespace Infrastructure.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Code = table.Column<string>(type: "text", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Code = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,11 +39,11 @@ namespace Infrastructure.Migrations
                 name: "DefinitionItems",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DayOfWeek = table.Column<int>(type: "integer", nullable: false),
-                    StartTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "interval", nullable: false),
-                    DefinitionId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "INTEGER", nullable: false),
+                    StartTime = table.Column<TimeOnly>(type: "TEXT", nullable: false),
+                    Duration = table.Column<TimeSpan>(type: "TEXT", nullable: false),
+                    DefinitionId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,14 +60,14 @@ namespace Infrastructure.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: true),
-                    Name_Value = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
-                    Role = table.Column<string>(type: "text", nullable: false),
-                    Discriminator = table.Column<string>(type: "text", nullable: false),
-                    DepartmentId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    FullName = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    Role = table.Column<string>(type: "TEXT", nullable: false),
+                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
+                    DepartmentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,11 +84,11 @@ namespace Infrastructure.Migrations
                 name: "Courses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TeacherId = table.Column<string>(type: "text", nullable: true),
-                    DepartmentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    TotalHours = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    TeacherId = table.Column<string>(type: "TEXT", nullable: true),
+                    DepartmentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    TotalHours = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,9 +110,9 @@ namespace Infrastructure.Migrations
                 name: "Plannings",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CourseId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DefinitionId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CourseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DefinitionId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,10 +135,10 @@ namespace Infrastructure.Migrations
                 name: "Sessions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PlanningId = table.Column<Guid>(type: "uuid", nullable: false),
-                    StartDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "interval", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PlanningId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    StartDateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Duration = table.Column<TimeSpan>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

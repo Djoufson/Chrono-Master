@@ -34,6 +34,10 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
             name
                 .Property(n => n.LastName)
                 .HasColumnName("LastName");
+
+            name
+                .Property(n => n.Value)
+                .HasColumnName("FullName");
         });
 
         builder
