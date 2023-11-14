@@ -1,3 +1,4 @@
+using Domain.Utilities;
 using Domain.ValueObjects;
 
 namespace Domain.Entities;
@@ -26,6 +27,6 @@ public class AcademicManager : User
             name,
             password,
             department,
-            "");
+            Roles.AcademicManager);
     }
 }
