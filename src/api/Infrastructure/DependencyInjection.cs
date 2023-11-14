@@ -14,7 +14,7 @@ public static class DependencyInjection
         IHostEnvironment env)
     {
         services.AddPersistence(config, env);
-        services.AddServices();
+        services.AddServices(config);
         return services;
     }
 }

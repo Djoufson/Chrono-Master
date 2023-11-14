@@ -1,3 +1,7 @@
+using Domain.Entities;
+using Domain.ValueObjects;
+using Infrastructure.Persistence;
+
 namespace WebApi;
 
 public static class DependencyInjection
@@ -8,5 +12,27 @@ public static class DependencyInjection
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         return services;
+    }
+
+    public static WebApplication Seed(this WebApplication app)
+    {
+        if(app.Environment.IsDevelopment())
+        {
+            Console.WriteLine("---> Seeding");
+            using var scope = app.Services.CreateScope();
+            using var ctx = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            if(ctx.Users.Any())
+                return app;
+
+            var user = Admin.CreateUnique(
+                Name.Create("John", "Doe"),
+                Password.Create("string")
+            );
+
+            ctx.Add(user);
+            ctx.SaveChanges();
+        }
+        return app;
     }
 }

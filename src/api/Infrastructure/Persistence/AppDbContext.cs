@@ -1,10 +1,12 @@
 using Domain.Entities;
+using Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
 
 public class AppDbContext : DbContext
 {
+    public DbSet<User> Users { get; set; }
     public DbSet<Admin> Admins { get; set; }
     public DbSet<AcademicManager> Managers { get; set; }
     public DbSet<Teacher> Teachers { get; set; }
