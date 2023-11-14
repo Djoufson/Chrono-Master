@@ -8,7 +8,7 @@ public class DefinitionItem : Entity<DefinitionItemId>
     public DayOfWeek DayOfWeek { get; private set; }
     public TimeOnly StartTime { get; private set; }
     public TimeSpan Duration { get; private set; }
-    public PlanningDefinition Definition { get; set; }
+    public PlanningDefinition Definition { get; private set; }
 
     private DefinitionItem(
         DefinitionItemId id,
