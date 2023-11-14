@@ -6,6 +6,7 @@ namespace Domain.Entities;
 
 public sealed class AcademicManager : User
 {
+    public DepartmentId DepartmentId { get; set; }
     public Department Department { get; private set; }
     private AcademicManager(
         UserId id,
@@ -15,7 +16,14 @@ public sealed class AcademicManager : User
         string role) : base(id, name, password, role)
     {
         Department = department;
+        DepartmentId = department.Id;
     }
+
+    #pragma warning disable CS8618
+    private AcademicManager()
+    {
+    }
+    #pragma warning restore
 
     public static User CreateUnique(
         Name name,

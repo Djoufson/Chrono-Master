@@ -23,6 +23,12 @@ public sealed class DefinitionItem : Entity<DefinitionItemId>
         Definition = definition;
     }
 
+    #pragma warning disable CS8618
+    private DefinitionItem()
+    {
+    }
+    #pragma warning restore
+
     public static DefinitionItem CreateUnique(
         Definition definition,
         DayOfWeek dayOfWeek,

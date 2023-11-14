@@ -14,6 +14,12 @@ public sealed class Admin : User
     {
     }
 
+    #pragma warning disable CS8618
+    private Admin()
+    {
+    }
+    #pragma warning restore
+
     public static User CreateUnique(
         Name name,
         Password password)

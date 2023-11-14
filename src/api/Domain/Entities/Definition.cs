@@ -12,6 +12,12 @@ public sealed class Definition : Entity<DefinitionId>
     {
     }
 
+    #pragma warning disable CS8618
+    private Definition()
+    {
+    }
+    #pragma warning restore
+
     public static Definition CreateUnique()
     {
         return new(

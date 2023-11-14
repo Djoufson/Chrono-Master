@@ -26,6 +26,12 @@ public sealed class Course : Entity<CourseId>
         Planning = planning;
     }
 
+    #pragma warning disable CS8618
+    private Course()
+    {
+    }
+    #pragma warning restore
+
     public static Course CreateUnique(
         string title,
         int totalHours,

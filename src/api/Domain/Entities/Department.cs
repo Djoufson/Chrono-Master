@@ -22,6 +22,12 @@ public sealed class Department : Entity<DepartmentId>
         Manager = manager;
     }
 
+    #pragma warning disable CS8618
+    private Department()
+    {
+    }
+    #pragma warning restore
+
     public static Department CreateUnique(
         string title,
         string code,

@@ -20,6 +20,12 @@ public sealed class Session : Entity<SessionId>
         Planning = planning;
     }
 
+    #pragma warning disable CS8618
+    private Session()
+    {
+    }
+    #pragma warning restore
+
     public static Session CreateUnique(
         Planning planning,
         DateTime startDateTime,
