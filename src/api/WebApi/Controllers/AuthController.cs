@@ -1,6 +1,8 @@
 using Application.Features.Authentication;
 using Application.Features.Authentication.Errors;
+using Domain.Utilities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -33,6 +35,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
+    [Authorize(Policy = Policies.AdminOnly)]
     public async Task<IActionResult> Register(Register.RegisterRequest request)
     {
         var result = await _sender.Send(request);

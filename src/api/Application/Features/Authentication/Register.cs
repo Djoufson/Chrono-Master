@@ -70,6 +70,7 @@ public class Register : IRequestHandler<Register.RegisterRequest, Result<Registe
         string Password,
         string? DepartmentId
     ) : IRequest<Result<RegisterResponse>>;
+
     public record RegisterResponse(
         string Identifier,
         string FullName,
