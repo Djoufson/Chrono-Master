@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories.Base;
 
-public class Repository<TEntity, TId> : IRepository<TEntity, TId>
+internal class Repository<TEntity, TId> : IRepository<TEntity, TId>
     where TId : notnull
     where TEntity : Entity<TId>
 {

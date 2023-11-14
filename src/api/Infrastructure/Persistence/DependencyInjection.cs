@@ -1,3 +1,4 @@
+using Application.Persistence;
 using Application.Persistence.Base;
 using Infrastructure.Persistence.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,7 @@ public static class DependencyInjection
         }
 
         services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;
     }
 }

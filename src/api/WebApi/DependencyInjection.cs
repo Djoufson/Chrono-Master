@@ -30,9 +30,18 @@ public static class DependencyInjection
                 Password.Create("string")
             );
 
+            var dpts = new []
+            {
+                Department.CreateUnique("Software Engineering", "SE", null),
+                Department.CreateUnique("Artificial Intelligence", "AI", null),
+                Department.CreateUnique("Accounting & Finance", "AF", null)
+            };
+
             ctx.Add(user);
+            ctx.AddRange(dpts);
             ctx.SaveChanges();
         }
+
         return app;
     }
 }

@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(Login.Request request)
+    public async Task<IActionResult> Login(Login.LoginRequest request)
     {
         var result = await _sender.Send(request);
         if(result.IsSuccess)
@@ -30,5 +30,16 @@ public class AuthController : ControllerBase
             UserNotFoundError => NotFound(error),
             _ => Problem()
         };
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(Register.RegisterRequest request)
+    {
+        var result = await _sender.Send(request);
+        if(result.IsSuccess)
+            return Ok(result.Value);
+
+        var error = result.Errors.Select(e => e.Message);
+        return BadRequest(error);
     }
 }

@@ -9,7 +9,7 @@ using MediatR;
 
 namespace Application.Features.Authentication;
 
-public class Login : IRequestHandler<Login.Request, Result<Login.Response>>
+public class Login : IRequestHandler<Login.LoginRequest, Result<Login.LoginResponse>>
 {
     private readonly IRepository<User, UserId> _userRepository;
     private readonly IJwtTokenGenerator _tokenGenerator;
@@ -22,7 +22,7 @@ public class Login : IRequestHandler<Login.Request, Result<Login.Response>>
         _tokenGenerator = tokenGenerator;
     }
 
-    public async Task<Result<Response>> Handle(Request request, CancellationToken cancellationToken)
+    public async Task<Result<LoginResponse>> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
         // Get the user from the database
         var userId = UserId.Create(request.Identifier);
@@ -43,15 +43,15 @@ public class Login : IRequestHandler<Login.Request, Result<Login.Response>>
         );
 
         // Return
-        return new Response(token);
+        return new LoginResponse(token);
     }
 
-    public record Request(
+    public record LoginRequest(
         Guid Identifier,
         string Password
-    ) : IRequest<Result<Response>>;
+    ) : IRequest<Result<LoginResponse>>;
 
-    public record Response(
+    public record LoginResponse(
         string Token
     );
 }
