@@ -7,9 +7,11 @@ public abstract class User : Entity<UserId>
 {
     public Name Name { get; set; }
     public Password Password { get; private set; }
-    protected User(UserId id, Name name, Password password) : base(id)
+    public string Role { get; set; }
+    protected User(UserId id, Name name, Password password, string role) : base(id)
     {
         Password = password;
         Name = name;
+        Role = role;
     }
 }
