@@ -11,7 +11,7 @@ public abstract class Entity<TId>
 
     // For Ef Core concerns
     #pragma warning disable CS8618
-    private Entity()
+    protected Entity()
     {
     }
     #pragma warning restore
