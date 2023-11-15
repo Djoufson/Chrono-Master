@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Domain.Entities.Base;
 using Domain.ValueObjects;
 
@@ -8,7 +9,7 @@ public sealed class Planning : Entity<PlanningId>
     public CourseId CourseId { get; set; }
     public Course Course { get; set; }
     public Definition Definition { get; set; }
-    public IReadOnlyList<Session> Sessions { get; private set; } = Array.Empty<Session>();
+    public ICollection<Session> Sessions { get; private set; } = new Collection<Session>();
     private Planning(
         PlanningId id,
         Course course,
@@ -36,8 +37,44 @@ public sealed class Planning : Entity<PlanningId>
         );
     }
 
-    public void GenerateSessions()
+    public Task<(int RemainingHours, ICollection<Session> Sessions)> GenerateSessionsAsync(DateOnly startDay, DateOnly endDay)
     {
-        Sessions = Array.Empty<Session>();
+        return Task.Run(() => 
+        {
+            Sessions.Clear();
+            var definitions = Definition.Items;
+            int totalHours = Course.TotalHours;
+            DateOnly date = startDay;
+
+            while (date < endDay && totalHours > 0)
+            {
+                // var temp = totalHours;
+                foreach (var def in definitions)
+                {
+                    // if(totalHours - def.Duration.Hours < 0)
+                    // {
+                    //     break;
+                    // }
+
+                    var variation = (int)def.DayOfWeek - (int)date.DayOfWeek;
+                    var day = date.Day;
+                    if(variation > 0)
+                        day += variation;
+
+                    Sessions.Add(Session.CreateUnique(
+                        this,
+                        new DateTime(date.Year, date.Month, day, def.StartTime.Hour, def.StartTime.Minute, 0),
+                        def.Duration));
+
+                    totalHours -= def.Duration.Hours;
+                }
+                // if(temp == totalHours)
+                //     break;
+
+                date = date.AddDays(7);
+            }
+
+            return (totalHours, Sessions);
+        });
     }
 }

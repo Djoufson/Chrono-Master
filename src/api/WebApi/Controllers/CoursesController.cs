@@ -52,4 +52,25 @@ public class CoursesController : ApiController
             _ => Problem()
         };
     }
+
+    [HttpPost("{id:Guid}/sessions")]
+    [Authorize(Policy = Policies.AcademicManagerOnly)]
+    public async Task<IActionResult> ComputeSessions(
+        [FromRoute] Guid id,
+        ComputeSessionsGeneration.ComputeSessionRequest request
+    )
+    {
+        var command = new ComputeSessionsGeneration.ComputeSessionCommand(id, request.StartDay, request.EndDay, request.Persist);
+        var result = await _sender.Send(command);
+
+        if(result.IsSuccess)
+            return Ok(result.Value);
+
+        var error = result.Errors.Select(e => e.Message);
+        return result.Errors.First() switch
+        {
+            CourseNotFoundError => NotFound(error),
+            _ => Problem()
+        };
+    }
 }

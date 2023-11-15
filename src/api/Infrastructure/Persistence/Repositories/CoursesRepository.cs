@@ -50,7 +50,7 @@ internal class CoursesRepository : Repository<Course, CourseId>, ICoursesReposit
     public async Task<Course?> GetByIdIncludingAllsAsync(CourseId id, CancellationToken cancellationToken = default)
     {
         return await _context.Courses
-            .AsNoTracking()
+            // .AsNoTracking()
             .AsSplitQuery()
             .Where(c => c.Planning != null)
             .Include(c => c.Planning)
