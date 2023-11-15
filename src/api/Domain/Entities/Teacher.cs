@@ -12,11 +12,9 @@ public sealed class Teacher : User
     {
     }
 
-    #pragma warning disable CS8618
     private Teacher()
     {
     }
-    #pragma warning restore
 
     public static User CreateUnique(Name name, Password password)
     {

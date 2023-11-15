@@ -3,7 +3,7 @@ namespace Domain.Entities.Base;
 public abstract class Entity<TId>
     where TId : notnull
 {
-    public TId Id { get; set; }
+    public TId Id { get; protected set; }
 
     protected Entity(TId id)
     {

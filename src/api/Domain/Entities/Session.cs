@@ -5,9 +5,9 @@ namespace Domain.Entities;
 
 public sealed class Session : Entity<SessionId>
 {
-    public Planning Planning { get; set; }
-    public DateTime StartDateTime { get; set; }
-    public TimeSpan Duration { get; set; }
+    public Planning Planning { get; private set; }
+    public DateTime StartDateTime { get; private set; }
+    public TimeSpan Duration { get; private set; }
 
     private Session(
         SessionId id,

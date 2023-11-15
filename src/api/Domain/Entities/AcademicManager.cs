@@ -6,7 +6,7 @@ namespace Domain.Entities;
 
 public sealed class AcademicManager : User
 {
-    public DepartmentId DepartmentId { get; set; }
+    public DepartmentId DepartmentId { get; private set; }
     public Department Department { get; private set; }
     private AcademicManager(
         UserId id,

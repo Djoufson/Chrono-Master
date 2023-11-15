@@ -6,9 +6,9 @@ namespace Domain.Entities;
 
 public sealed class Planning : Entity<PlanningId>
 {
-    public CourseId CourseId { get; set; }
-    public Course Course { get; set; }
-    public Definition Definition { get; set; }
+    public CourseId CourseId { get; private set; }
+    public Course Course { get; private set; }
+    public Definition Definition { get; private set; }
     public ICollection<Session> Sessions { get; private set; } = new Collection<Session>();
     private Planning(
         PlanningId id,
