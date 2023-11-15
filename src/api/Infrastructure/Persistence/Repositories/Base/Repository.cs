@@ -9,14 +9,14 @@ internal class Repository<TEntity, TId> : IRepository<TEntity, TId>
     where TId : notnull
     where TEntity : Entity<TId>
 {
-    private readonly AppDbContext _context;
+    protected readonly AppDbContext _context;
 
     public Repository(AppDbContext context)
     {
         _context = context;
     }
 
-    public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public virtual async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         await _context
             .Set<TEntity>()
@@ -25,7 +25,7 @@ internal class Repository<TEntity, TId> : IRepository<TEntity, TId>
         return entity;
     }
 
-    public async Task<IReadOnlyList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+    public virtual async Task<IReadOnlyList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
     {
         return await _context
             .Set<TEntity>()
@@ -34,7 +34,7 @@ internal class Repository<TEntity, TId> : IRepository<TEntity, TId>
             .ToArrayAsync(cancellationToken);
     }
 
-    public async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
+    public virtual async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
     {
         return await _context
             .Set<TEntity>()
