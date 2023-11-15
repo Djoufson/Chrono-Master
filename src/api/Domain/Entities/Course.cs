@@ -48,6 +48,16 @@ public sealed class Course : Entity<CourseId>
             planning);
     }
 
+    public void SetPlanning(Planning planning)
+    {
+        Planning = planning;
+    }
+
+    public void ClearPlanning()
+    {
+        Planning = null;
+    }
+
     public void AssignTeacher(Teacher teacher)
     {
         ArgumentNullException.ThrowIfNull(teacher);

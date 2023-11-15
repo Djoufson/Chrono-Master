@@ -32,4 +32,18 @@ public class CoursesController : ApiController
             _ => Problem()
         };
     }
+
+    [HttpPost("{id:Guid}/definitions")]
+    [Authorize(Policy = Policies.AcademicManagerOnly)]
+    public async Task<IActionResult> AddDefinition(
+        [FromRoute] Guid id,
+        AddCourseDefinition.AddCourseDefinitionRequest request)
+    {
+        var command = new AddCourseDefinition.AddCourseDefinitionCommand(id, request);
+        var result = await _sender.Send(command);
+        if(result.IsSuccess)
+            return Ok(result.Value);
+        else
+            return Problem();
+    }
 }
