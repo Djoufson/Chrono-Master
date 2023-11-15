@@ -1,3 +1,4 @@
+using Application.Features.Courses.Errors;
 using Application.Persistence;
 using Application.Persistence.Base;
 using Domain.Entities;
@@ -31,11 +32,11 @@ public class AddCourseDefinition
         var courseId = new CourseId(request.Id);
         var course = await _coursesRepository.GetByIdIncludingDefinitionsAsync(courseId, cancellationToken);
         if(course is null)
-            return null!;
+            return Result.Fail(CourseErrors.CourseNotFoundError);
 
         // Check for date and time coherence
         if(!IsDateCoherent(course, request.Request.DayOfWeek, startTime))
-            return null!;
+            return Result.Fail(CourseErrors.ConcurentScheduleError);
 
         // Create the course defiition and add it to the course
         if(course.Planning is null)
@@ -59,6 +60,7 @@ public class AddCourseDefinition
         return new AddCourseDefinitionResponse(
             course.Planning!.Definition.Items
                 .Select(i => new Item(
+                    i.Id.Value,
                     i.DayOfWeek,
                     new Time(i.StartTime.Hour, i.StartTime.Minute),
                     new Duration(i.Duration.Hours, i.Duration.Minutes)
@@ -89,11 +91,13 @@ public class AddCourseDefinition
         Guid Id,
         AddCourseDefinitionRequest Request
     ) : IRequest<Result<AddCourseDefinitionResponse>>;
+    
     public record AddCourseDefinitionResponse(
         Item[] Items
     );
 
     public record Item(
+        string Id,
         DayOfWeek DayOfWeek,
         Time StartTime,
         Duration Duration

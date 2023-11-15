@@ -16,6 +16,7 @@ internal class CoursesRepository : Repository<Course, CourseId>, ICoursesReposit
     public override async Task<IReadOnlyList<Course>> GetAllAsync(Expression<Func<Course, bool>> predicate, CancellationToken cancellationToken = default)
     {
         var courses = await _context.Courses
+            .AsSplitQuery()
             .Include(c => c.Planning)
             .Where(predicate)
             .ToArrayAsync(cancellationToken);
@@ -27,6 +28,7 @@ internal class CoursesRepository : Repository<Course, CourseId>, ICoursesReposit
     public async Task<IReadOnlyList<Course>> GetAllScheduledCourses(Expression<Func<Course, bool>> predicate, CancellationToken cancellationToken = default)
     {
         var courses = await _context.Courses
+            .AsSplitQuery()
             .Where(p => p.Planning != null)
             .Include(c => c.Planning)
             .ThenInclude(p => p.Definition)
@@ -40,6 +42,7 @@ internal class CoursesRepository : Repository<Course, CourseId>, ICoursesReposit
     public override async Task<Course?> GetByIdAsync(CourseId id, CancellationToken cancellationToken = default)
     {
         return await _context.Courses
+            .AsSplitQuery()
             .Include(c => c.Planning)
             .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
@@ -48,6 +51,7 @@ internal class CoursesRepository : Repository<Course, CourseId>, ICoursesReposit
     {
         return await _context.Courses
             .AsNoTracking()
+            .AsSplitQuery()
             .Where(c => c.Planning != null)
             .Include(c => c.Planning)
             .ThenInclude(p => p.Sessions)
@@ -60,7 +64,7 @@ internal class CoursesRepository : Repository<Course, CourseId>, ICoursesReposit
     public async Task<Course?> GetByIdIncludingDefinitionsAsync(CourseId id, CancellationToken cancellationToken = default)
     {
         return await _context.Courses
-            // .Where(c => c.Planning != null)
+            .AsSplitQuery()
             .Include(c => c.Planning)
             .ThenInclude(p => p.Definition)
             .ThenInclude(d => d.Items)
@@ -70,7 +74,7 @@ internal class CoursesRepository : Repository<Course, CourseId>, ICoursesReposit
     public async Task<Course?> GetByIdIncludingSessionsAsync(CourseId id, CancellationToken cancellationToken = default)
     {
         return await _context.Courses
-            // .Where(c => c.Planning != null)
+            .AsSplitQuery()
             .Include(c => c.Planning)
             .ThenInclude(p => p.Sessions)
             .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);

@@ -43,7 +43,13 @@ public class CoursesController : ApiController
         var result = await _sender.Send(command);
         if(result.IsSuccess)
             return Ok(result.Value);
-        else
-            return Problem();
+
+        var error = result.Errors.Select(e => e.Message);
+        return result.Errors.First() switch
+        {
+            ConcurentScheduleError => BadRequest(error),
+            CourseNotFoundError => NotFound(error),
+            _ => Problem()
+        };
     }
 }
