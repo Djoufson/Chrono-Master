@@ -8,6 +8,7 @@ public sealed class Session : Entity<SessionId>
     public Planning Planning { get; private set; }
     public DateTime StartDateTime { get; private set; }
     public TimeSpan Duration { get; private set; }
+    public bool PendingUpdates { get; private set; }
 
     private Session(
         SessionId id,
@@ -37,5 +38,10 @@ public sealed class Session : Entity<SessionId>
             startDateTime,
             duration
         );
+    }
+
+    public void ChangeStatus(bool updated)
+    {
+        PendingUpdates = updated;
     }
 }
