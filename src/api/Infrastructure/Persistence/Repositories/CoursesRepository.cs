@@ -18,12 +18,13 @@ internal class CoursesRepository : Repository<Course, CourseId>, ICoursesReposit
         var courses = await _context.Courses
             .AsSplitQuery()
             .Include(c => c.Planning)
+            .Include(c => c.Teacher)
+            .Include(c => c.Department)
             .Where(predicate)
             .ToArrayAsync(cancellationToken);
 
         return courses;
     }
-
 #pragma warning disable CS8602
     public async Task<IReadOnlyList<Course>> GetAllScheduledCourses(Expression<Func<Course, bool>> predicate, CancellationToken cancellationToken = default)
     {

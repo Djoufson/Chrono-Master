@@ -34,6 +34,11 @@ internal class Repository<TEntity, TId> : IRepository<TEntity, TId>
             .ToArrayAsync(cancellationToken);
     }
 
+    public virtual async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        return await GetAllAsync(e => e != null, cancellationToken);
+    }
+
     public virtual async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
     {
         return await _context

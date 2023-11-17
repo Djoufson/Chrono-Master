@@ -34,6 +34,19 @@ public class CoursesController : ApiController
         };
     }
 
+    [HttpGet]
+    // [Authorize(Policy = Policies.AcademicManagerOnly)]
+    public async Task<IActionResult> GetCourses()
+    {
+        var query = new GetAllCourses.GetAllCoursesRequest();
+        var result = await _sender.Send(query);
+
+        if(result.IsSuccess)
+            return Ok(result.Value);
+
+        return Problem();
+    }
+
     [HttpPost("{id:Guid}/definitions")]
     [Authorize(Policy = Policies.AcademicManagerOnly)]
     public async Task<IActionResult> AddDefinition(
