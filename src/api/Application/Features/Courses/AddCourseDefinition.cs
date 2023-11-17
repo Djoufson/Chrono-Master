@@ -1,3 +1,4 @@
+using Application.Features.Courses.Common;
 using Application.Features.Courses.Errors;
 using Application.Persistence;
 using Application.Persistence.Base;
@@ -36,15 +37,15 @@ public class AddCourseDefinition
 
         // Check for date and time coherence
         if(!IsDateCoherent(course, request.Request.DayOfWeek, startTime))
-            return Result.Fail(CourseErrors.ConcurentScheduleError);
+            return Result.Fail(CourseErrors.ConcurrentScheduleError);
 
-        // Create the course defiition and add it to the course
+        // Create the course definition and add it to the course
         if(course.Planning is null)
         {
-            var defiition = Definition.CreateUnique();
-            var definitionItem = DefinitionItem.CreateUnique(defiition, request.Request.DayOfWeek, startTime, duration);
-            defiition.Items.Add(definitionItem);
-            var planning = Planning.CreateUnique(course, defiition);
+            var definition = Definition.CreateUnique();
+            var definitionItem = DefinitionItem.CreateUnique(definition, request.Request.DayOfWeek, startTime, duration);
+            definition.Items.Add(definitionItem);
+            var planning = Planning.CreateUnique(course, definition);
             course.SetPlanning(planning);
         }
         else
@@ -101,15 +102,5 @@ public class AddCourseDefinition
         DayOfWeek DayOfWeek,
         Time StartTime,
         Duration Duration
-    );
-
-    public record struct Time(
-        int Hour,
-        int Minute
-    );
-
-    public record struct Duration(
-        int Hours,
-        int Minutes
     );
 }

@@ -2,11 +2,11 @@ using FluentResults;
 
 namespace Application.Features.Courses.Errors;
 
-public class ConcurentScheduleError : IError
+public class SessionNotFoundError : IError
 {
     public List<IError> Reasons => new();
 
-    public string Message => "This course has already a session scheduled at this day and time";
+    public string Message => "The session you are requesting for does not or no longer exist";
 
     public Dictionary<string, object> Metadata => new();
 }

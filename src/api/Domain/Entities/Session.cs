@@ -3,7 +3,7 @@ using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
-public sealed class Session : Entity<SessionId>
+public sealed class Session : Entity<SessionId>, IComparable<Session>
 {
     public Planning Planning { get; private set; }
     public DateTime StartDateTime { get; private set; }
@@ -40,8 +40,29 @@ public sealed class Session : Entity<SessionId>
         );
     }
 
-    public void ChangeStatus(bool updated)
+    internal void ChangeSessionHour(DateTime startDateTime, TimeSpan duration)
+    {
+        StartDateTime = startDateTime;
+        Duration = duration;
+        ChangeStatus(true);
+    }
+
+    public void ResolvePendingUpdates()
+    {
+        ChangeStatus(false);
+    }
+
+    private void ChangeStatus(bool updated)
     {
         PendingUpdates = updated;
+    }
+
+    public int CompareTo(Session? other)
+    {
+        if (other == null)
+            return 1;
+
+        // Compare StartDateTime
+        return StartDateTime.CompareTo(other.StartDateTime);
     }
 }

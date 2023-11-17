@@ -37,25 +37,39 @@ public sealed class Planning : Entity<PlanningId>
         );
     }
 
-    public Task<(int RemainingHours, ICollection<Session> Sessions)> GenerateSessionsAsync(DateOnly startDay, DateOnly endDay)
+    public Task<(int RemainingHours, ICollection<Session> Sessions)> GenerateSessionsAsync(DateOnly startDay, DateOnly endDay, int skipNumber = 0)
     {
         return Task.Run(() => 
         {
-            Sessions.Clear();
-            var definitions = Definition.Items;
+            var turns = 0;
+            if(skipNumber > 0)
+            {
+                var skippedSessions = Sessions
+                    .Order()
+                    .Skip(skipNumber)
+                    .ToArray();
+
+                Sessions.Clear();
+                foreach (var session in skippedSessions)
+                    Sessions.Add(session);
+            }
+            else
+                Sessions.Clear();
+
+            var definitions = Definition.Items
+                .Order()
+                .ToArray();
+
             int totalHours = Course.TotalHours;
             DateOnly date = startDay;
 
+            while(turns++ < skipNumber)
+                date = date.AddDays(7);
+
             while (date < endDay && totalHours > 0)
             {
-                // var temp = totalHours;
-                foreach (var def in definitions)
+                foreach (var def in definitions.OrderBy(d => d.DayOfWeek))
                 {
-                    // if(totalHours - def.Duration.Hours < 0)
-                    // {
-                    //     break;
-                    // }
-
                     var variation = (int)def.DayOfWeek - (int)date.DayOfWeek;
                     var day = date.Day;
                     if(variation > 0)
@@ -68,13 +82,34 @@ public sealed class Planning : Entity<PlanningId>
 
                     totalHours -= def.Duration.Hours;
                 }
-                // if(temp == totalHours)
-                //     break;
 
                 date = date.AddDays(7);
             }
 
             return (totalHours, Sessions);
         });
+    }
+
+    public async Task ChangeSessionHourAsync(Session session, DateTime startDateTime, TimeSpan duration, bool @override = false)
+    {
+        var initialStartDateTime = session.StartDateTime;
+
+        // Change the related data
+        session.ChangeSessionHour(startDateTime, duration);
+
+        // Override if requested
+        if(!@override)
+            return;
+
+        var sessions = Sessions.Order().ToArray();
+        var firstSession = sessions.First();
+        var lastSession = sessions.Last();
+        var initDate = new DateOnly(initialStartDateTime.Year, initialStartDateTime.Month, initialStartDateTime.Day); // The initial startDate of the session
+        var start = new DateOnly(firstSession.StartDateTime.Year, firstSession.StartDateTime.Month, firstSession.StartDateTime.Day); // The beginning of the first session
+        var end = new DateOnly(lastSession.StartDateTime.Year, lastSession.StartDateTime.Month, lastSession.StartDateTime.Day); // The beginning of the last session
+
+        // Get the skipNumber
+        var skipNumber = (int)Math.Floor((initDate.DayNumber - start.DayNumber) / 7.0);
+        _ = await GenerateSessionsAsync(start, end, skipNumber);
     }
 }

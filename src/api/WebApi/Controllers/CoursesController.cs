@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Controllers.Base;
+using static Application.Features.Courses.ChangeSessionHour;
 
 namespace WebApi.Controllers;
 
@@ -47,7 +48,7 @@ public class CoursesController : ApiController
         var error = result.Errors.Select(e => e.Message);
         return result.Errors.First() switch
         {
-            ConcurentScheduleError => BadRequest(error),
+            ConcurrentScheduleError => BadRequest(error),
             CourseNotFoundError => NotFound(error),
             _ => Problem()
         };
@@ -70,6 +71,29 @@ public class CoursesController : ApiController
         return result.Errors.First() switch
         {
             CourseNotFoundError => NotFound(error),
+            _ => Problem()
+        };
+    }
+
+    [HttpPut("{id:Guid}/sessions/{sessionId:Guid}")]
+    [Authorize(Policy = Policies.AcademicManagerOnly)]
+    public async Task<IActionResult> ChangeSessionHour(
+        [FromRoute] Guid id,
+        [FromRoute] Guid sessionId,
+        ChangeSessionHourRequest request
+    )
+    {
+        var command = new ChangeSessionHourCommand(id, sessionId, request);
+        var result = await _sender.Send(command);
+
+        if(result.IsSuccess)
+            return Ok(result.Value);
+
+        var error = result.Errors.Select(e => e.Message);
+        return result.Errors.First() switch
+        {
+            CourseNotFoundError or SessionNotFoundError => NotFound(error),
+            PlanningNotSetError => BadRequest(error),
             _ => Problem()
         };
     }
