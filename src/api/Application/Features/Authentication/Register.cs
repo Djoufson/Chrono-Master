@@ -40,7 +40,7 @@ public class Register : IRequestHandler<Register.RegisterRequest, Result<Registe
 
         // Save to the database
         if(user is null)
-            return Result.Fail(AuthErrors.UserRegitrationFailed("The Department field is mendatory in order to create an Academic Manager"));
+            return Result.Fail(AuthErrors.UserRegistrationFailed("The Department field is mandatory in order to create an Academic Manager"));
 
         await _usersRepository.AddAsync(user, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

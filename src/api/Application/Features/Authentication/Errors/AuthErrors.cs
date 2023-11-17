@@ -6,5 +6,5 @@ public class AuthErrors
     public static MismatchPasswordError MismatchPasswordError => new();
     public static PasswordRequirementsError PasswordRequirementsError => new();
     public static UserNotFoundError UserNotFoundError => new();
-    public static UserRegitrationFailed UserRegitrationFailed(string message) => new(message);
+    public static UserRegitrationFailed UserRegistrationFailed(string message) => new(message);
 }

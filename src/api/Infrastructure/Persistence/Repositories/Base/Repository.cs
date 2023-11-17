@@ -25,6 +25,11 @@ internal class Repository<TEntity, TId> : IRepository<TEntity, TId>
         return entity;
     }
 
+    public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        return await _context.Set<TEntity>().AnyAsync(predicate, cancellationToken);
+    }
+
     public virtual async Task<IReadOnlyList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
     {
         return await _context
