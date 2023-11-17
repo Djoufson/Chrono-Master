@@ -39,6 +39,7 @@ public static class DependencyInjection
             opt.AddPolicy(Policies.AdminOnly, p => p.RequireRole(Roles.Admin));
             opt.AddPolicy(Policies.TeacherOnly, p => p.RequireRole(Roles.Teacher));
             opt.AddPolicy(Policies.AcademicManagerOnly, p => p.RequireRole(Roles.AcademicManager));
+            opt.AddPolicy(Policies.AdminAndAcademicManagerOnly, p => p.RequireRole(Roles.Admin, Roles.AcademicManager));
         });
 
         return services;

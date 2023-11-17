@@ -35,7 +35,7 @@ public class CoursesController : ApiController
     }
 
     [HttpGet]
-    // [Authorize(Policy = Policies.AcademicManagerOnly)]
+    [Authorize(Policy = Policies.AdminAndAcademicManagerOnly)]
     public async Task<IActionResult> GetCourses()
     {
         var query = new GetAllCourses.GetAllCoursesRequest();
