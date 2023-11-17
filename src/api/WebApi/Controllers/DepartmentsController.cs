@@ -34,7 +34,7 @@ public class DepartmentsController : ApiController
     }
 
     [HttpGet]
-    // [Authorize(Policy = Policies.AdminAndAcademicManagerOnly)]
+    [Authorize(Policy = Policies.AdminAndAcademicManagerOnly)]
     public async Task<IActionResult> GetAllDepartments()
     {
         var query = new GetAllDepartments.GetAllDepartmentsRequest();
