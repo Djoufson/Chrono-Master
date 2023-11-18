@@ -27,8 +27,8 @@ jobs:
 
     - name: Build and push WebAPI Docker image
       run: |
-        docker build -t your-dockerhub-username/webapi:latest -f src/api/WebApi/Dockerfile .
-        docker push your-dockerhub-username/webapi:latest
+        docker build -t djoufson/webapi:latest -f src/api/WebApi/Dockerfile .
+        docker push djoufson/webapi:latest
 
   build-and-push-database:
     runs-on: ubuntu-latest
@@ -51,8 +51,8 @@ jobs:
 
     - name: Build and push Database Docker image
       run: |
-        docker build -t your-dockerhub-username/database:latest -f path/to/your/database/Dockerfile .
-        docker push your-dockerhub-username/database:latest
+        docker build -t djoufson/database:latest -f path/to/your/database/Dockerfile .
+        docker push djoufson/database:latest
 
 # Add more build-and-push jobs for other services if needed
 
