@@ -1,0 +1,21 @@
+apiVersion: '2018-10-01'
+location: eastus
+name: aci-deployment
+properties:
+  containers:
+    - name: service1
+      properties:
+        image: chronomaster.azurecr.io/service1:latest
+        resources:
+          requests:
+            cpu: 1.0
+            memoryInGB: 1.5
+    - name: service2
+      properties:
+        image: chronomaster.azurecr.io/service2:latest
+        resources:
+          requests:
+            cpu: 1.0
+            memoryInGB: 1.5
+  osType: Linux
+  restartPolicy: Always
