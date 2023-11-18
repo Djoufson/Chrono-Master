@@ -3,16 +3,16 @@ location: eastus
 name: aci-deployment
 properties:
   containers:
-    - name: service1
+    - name: postgres_db
       properties:
-        image: chronomaster.azurecr.io/service1:latest
+        image: chronomaster.azurecr.io/postgres_db:latest
         resources:
           requests:
             cpu: 1.0
             memoryInGB: 1.5
-    - name: service2
+    - name: webapi
       properties:
-        image: chronomaster.azurecr.io/service2:latest
+        image: chronomaster.azurecr.io/webapi:latest
         resources:
           requests:
             cpu: 1.0
