@@ -60,7 +60,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: 
       - build-and-push-webapi
-      - build-and-push-database
       # Add more dependencies if you have more services
 
     steps:
