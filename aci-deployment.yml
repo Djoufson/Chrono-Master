@@ -5,11 +5,17 @@ properties:
   containers:
     - name: database
       properties:
-        image: djoufson/database:latest
-        resources:
-          requests:
-            cpu: 1.0
-            memoryInGB: 1.5
+        image: postgres
+        environmentVariables:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - port: 5433
+        restartPolicy: Always
+        volumeMounts:
+          - name: postgresdata
+            mountPath: /var/lib/postgresql/data
     - name: webapi
       properties:
         image: djoufson/webapi:latest
@@ -17,5 +23,20 @@ properties:
           requests:
             cpu: 1.0
             memoryInGB: 1.5
+        environmentVariables:
+          ASPNETCORE_ENVIRONMENT: Production
+          JwtSettings__Issuer: Chrono-Master.WebApi
+          JwtSettings__Audience: Chrono-Master.Client
+          JwtSettings__ExpirationInDays: 5
+          JwtSettings__SecretKey: my_super_secret_key_for_jwt_production
+          AdminSettings__Id: 72207f4c-b389-4f60-8ba0-fe526940e585
+          AdminSettings__Password: strong_pa55w0rD
+          ConnectionStrings__Postgresql: User Id=postgres;Password=postgres;Server=database;Port=5432;Database=Sms;IntegratedSecurity=true;Pooling=true;
   osType: Linux
   restartPolicy: Always
+  volumes:
+    - name: postgresdata
+      azureFile:
+        shareName: postgresdata
+        storageAccountName: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+        storageAccountKey: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
