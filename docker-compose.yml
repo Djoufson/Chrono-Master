@@ -3,7 +3,7 @@ version: '3.8'
 services:
   webapi:
     depends_on:
-      - postgres_db
+      - database
     build:
       context: .
       dockerfile: src/api/WebApi/Dockerfile
@@ -17,11 +17,11 @@ services:
       JwtSettings__SecretKey: my_super_secret_key_for_jwt_production
       AdminSettings__Id: 72207f4c-b389-4f60-8ba0-fe526940e585
       AdminSettings__Password: strong_pa55w0rD
-      ConnectionStrings__Postgresql: User Id=postgres;Password=postgres;Server=postgres_db;Port=5432;Database=Sms;IntegratedSecurity=true;Pooling=true;
+      ConnectionStrings__Postgresql: User Id=postgres;Password=postgres;Server=database;Port=5432;Database=Sms;IntegratedSecurity=true;Pooling=true;
 
-  postgres_db:
+  database:
     image: postgres
-    container_name: postgres_db
+    container_name: database
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
