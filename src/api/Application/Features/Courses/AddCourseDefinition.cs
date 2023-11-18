@@ -1,7 +1,6 @@
 using Application.Features.Courses.Common;
 using Application.Features.Courses.Errors;
 using Application.Persistence;
-using Application.Persistence.Base;
 using Domain.Entities;
 using Domain.ValueObjects;
 using FluentResults;
