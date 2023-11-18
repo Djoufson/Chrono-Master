@@ -7,9 +7,12 @@ properties:
       properties:
         image: postgres
         environmentVariables:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_HOST_AUTH_METHOD: trust
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_PASSWORD
+            value: postgres
+          - name: POSTGRES_HOST_AUTH_METHOD
+            value: trust
         ports:
           - port: 5433
         restartPolicy: Always
@@ -24,14 +27,22 @@ properties:
             cpu: 1.0
             memoryInGB: 1.5
         environmentVariables:
-          ASPNETCORE_ENVIRONMENT: Production
-          JwtSettings__Issuer: Chrono-Master.WebApi
-          JwtSettings__Audience: Chrono-Master.Client
-          JwtSettings__ExpirationInDays: 5
-          JwtSettings__SecretKey: my_super_secret_key_for_jwt_production
-          AdminSettings__Id: 72207f4c-b389-4f60-8ba0-fe526940e585
-          AdminSettings__Password: strong_pa55w0rD
-          ConnectionStrings__Postgresql: User Id=postgres;Password=postgres;Server=database;Port=5432;Database=Sms;IntegratedSecurity=true;Pooling=true;
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Production
+          - name: JwtSettings__Issuer
+            value: Chrono-Master.WebApi
+          - name: JwtSettings__Audience
+            value: Chrono-Master.Client
+          - name: JwtSettings__ExpirationInDays
+            value: '5'
+          - name: JwtSettings__SecretKey
+            value: my_super_secret_key_for_jwt_production
+          - name: AdminSettings__Id
+            value: 72207f4c-b389-4f60-8ba0-fe526940e585
+          - name: AdminSettings__Password
+            value: strong_pa55w0rD
+          - name: ConnectionStrings__Postgresql
+            value: User Id=postgres;Password=postgres;Server=database;Port=5432;Database=Sms;IntegratedSecurity=true;Pooling=true;
   osType: Linux
   restartPolicy: Always
   volumes:
