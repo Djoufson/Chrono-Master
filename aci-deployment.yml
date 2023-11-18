@@ -52,5 +52,5 @@ properties:
     - name: postgresdata
       azureFile:
         shareName: postgresdata
-        storageAccountName: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+        storageAccountName: chronomaster
         storageAccountKey: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
