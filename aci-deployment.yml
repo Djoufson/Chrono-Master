@@ -53,4 +53,4 @@ properties:
       azureFile:
         shareName: postgresdata
         storageAccountName: chronomaster
-        storageAccountKey: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+        storageAccountKey: mw9ZDjFSxox4ACEIkj8G4MBkeg7w6OJzMAqnX+2MT8wDOMMGuxq3SPxAh0UT+MO5VprupBQH2dqw+AStM6jUZw==
