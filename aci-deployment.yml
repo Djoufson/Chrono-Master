@@ -6,6 +6,10 @@ properties:
     - name: database
       properties:
         image: postgres
+        resources:
+          requests:
+            cpu: 1.0
+            memoryInGB: 1.5
         environmentVariables:
           - name: POSTGRES_USER
             value: postgres
