@@ -15,7 +15,6 @@ properties:
             value: trust
         ports:
           - port: 5433
-        restartPolicy: Always
         volumeMounts:
           - name: postgresdata
             mountPath: /var/lib/postgresql/data
