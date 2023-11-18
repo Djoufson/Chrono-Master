@@ -5,14 +5,14 @@ properties:
   containers:
     - name: database
       properties:
-        image: chronomaster.azurecr.io/database:latest
+        image: djoufson/database:latest
         resources:
           requests:
             cpu: 1.0
             memoryInGB: 1.5
     - name: webapi
       properties:
-        image: chronomaster.azurecr.io/webapi:latest
+        image: djoufson/webapi:latest
         resources:
           requests:
             cpu: 1.0
