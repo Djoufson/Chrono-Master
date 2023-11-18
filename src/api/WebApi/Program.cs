@@ -11,18 +11,17 @@ builder.Services
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Chrono-Master");
-
 app.Seed();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseHsts();
 
 app.UseAuthorization();
 

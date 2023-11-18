@@ -23,7 +23,6 @@ public static class DependencyInjection
         else if(env.IsProduction())
         {
             Console.WriteLine("---> Production");
-            // services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlServer("SqlServer"));
             services.AddDbContext<AppDbContext>(cfg => cfg.UseNpgsql(config.GetConnectionString("Postgresql")));
         }
         else

@@ -31,4 +31,14 @@ public sealed class Admin : User
             Roles.Admin
         );
     }
+
+    public static object Create(UserId userId, Name name, Password password)
+    {
+        return new Admin(
+            userId,
+            name,
+            password,
+            Roles.Admin
+        );
+    }
 }
