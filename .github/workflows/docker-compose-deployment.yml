@@ -30,37 +30,10 @@ jobs:
         docker build -t djoufson/webapi:latest -f src/api/WebApi/Dockerfile .
         docker push djoufson/webapi:latest
 
-  # build-and-push-database:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #   - name: Checkout repository
-  #     uses: actions/checkout@v2
-
-  #   - name: Set up QEMU
-  #     uses: docker/setup-qemu-action@v2
-
-  #   - name: Set up Docker Buildx
-  #     uses: docker/setup-buildx-action@v1
-
-  #   - name: Login to Docker Hub
-  #     uses: docker/login-action@v1
-  #     with:
-  #       username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #       password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-  #   - name: Build and push Database Docker image
-  #     run: |
-  #       docker build -t djoufson/database:latest -f path/to/your/database/Dockerfile .
-  #       docker push djoufson/database:latest
-
-# Add more build-and-push jobs for other services if needed
-
   deploy-to-aci:
     runs-on: ubuntu-latest
     needs: 
       - build-and-push-webapi
-      # Add more dependencies if you have more services
 
     steps:
       - name: Checkout repository
@@ -71,9 +44,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy to Azure Container Instances
-        run: az container create --resource-group rg-chronomaster-eastus --file aci-deployment.yml
-        env:
-          AZURE_CONTAINER_REGISTRY_SERVER: ${{ secrets.DOCKERHUB_REGISTRY }}
-          AZURE_CONTAINER_REGISTRY_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          AZURE_CONTAINER_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+      # - name: Deploy to Azure Container Instances
+      #   run: az container create --resource-group rg-chronomaster-eastus --file aci-deployment.yml
+      #   env:
+      #     AZURE_CONTAINER_REGISTRY_SERVER: ${{ secrets.DOCKERHUB_REGISTRY }}
+      #     AZURE_CONTAINER_REGISTRY_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     AZURE_CONTAINER_REGISTRY_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Update Azure App Service with docker-compose
+        run: |
+          az webapp create --resource-group rg-chronomaster-eastus --name chronomaster --plan ASP-rgchronomastereastus-9411 --multicontainer-config-file docker-compose.yml

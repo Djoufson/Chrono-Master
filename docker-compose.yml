@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   webapi:
-    build:
-      context: .
-      dockerfile: src/api/WebApi/Dockerfile
+    image: djoufson/webapi
     depends_on:
       - database
     ports:
