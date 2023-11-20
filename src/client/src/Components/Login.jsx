@@ -1,12 +1,17 @@
 import React from 'react'
 import './Login.css'
+import Title from './Title.png'
+import Logo from './Chrono Master.png'
 
 export const Login = () => {
   return (
     <div>
+        <div className="logo">
+            <img src={Logo} width={230} alt="" />
+        </div>
         <div className="container">
             <div className="header">
-                <div className="text">Gerer vos cours <br />  comme jamais</div>
+                <img src={Title} alt="" />
             </div>
             <div className="inputs">
                 <span> Votre Matricule</span>

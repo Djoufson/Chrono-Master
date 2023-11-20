@@ -18,14 +18,9 @@
    margin-top: 10px; 
     
 }
-.text{
-    color: azure;
-    font-size: 40px;
-    font-weight: 400;
-    text-align: center;
+
     
 
-}
 
 .inputs{
 
@@ -71,7 +66,7 @@ span{
   padding-top: 40px;
     color: rgb(245, 252, 252);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
+    padding-bottom: 50px;
 
 }
 
@@ -83,9 +78,29 @@ span{
     height: 40px;
     background: rgb(253, 126, 28);
     border-radius: 30px;
+    cursor: pointer;
 
 }
 
 .submit{
     margin-left: 30%;
 }
+
+.submit-container :hover{
+    color: aliceblue;
+
+}
+
+/* Chrono Master */
+
+.logo{
+    position: absolute;
+left: calc(50% - 293px/2 + 550.5px);
+top: 10px;
+margin-right: 20px;
+
+
+
+
+}
+
