@@ -15,21 +15,22 @@ public static class DependencyInjection
         IConfiguration config,
         IHostEnvironment env)
     {
-        if(env.IsDevelopment())
-        {
-            Console.WriteLine("---> Development");
-            services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlite("Data Source=Database/app.db"));
-        }
-        else if(env.IsProduction())
-        {
-            Console.WriteLine("---> Production");
-            services.AddDbContext<AppDbContext>(cfg => cfg.UseNpgsql(config.GetConnectionString("Postgresql")));
-        }
-        else
-        {
-            Console.WriteLine("---> Else");
-            services.AddDbContext<AppDbContext>(cfg => cfg.UseInMemoryDatabase("Database"));
-        }
+        services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlite("Data Source=Database/app.db"));
+        // if(env.IsDevelopment())
+        // {
+        //     Console.WriteLine("---> Development");
+        //     services.AddDbContext<AppDbContext>(cfg => cfg.UseSqlite("Data Source=Database/app.db"));
+        // }
+        // else if(env.IsProduction())
+        // {
+        //     Console.WriteLine("---> Production");
+        //     services.AddDbContext<AppDbContext>(cfg => cfg.UseNpgsql(config.GetConnectionString("Postgresql")));
+        // }
+        // else
+        // {
+        //     Console.WriteLine("---> Else");
+        //     services.AddDbContext<AppDbContext>(cfg => cfg.UseInMemoryDatabase("Database"));
+        // }
 
         services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
         services.AddScoped<ICoursesRepository, CoursesRepository>();
