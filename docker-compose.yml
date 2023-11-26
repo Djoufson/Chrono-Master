@@ -29,6 +29,12 @@ services:
     restart: always
     volumes:
       - postgresdata:/var/lib/postgresql/data
+  client:
+    image: djoufson/client
+    depends_on:
+      - webapi
+    ports:
+      - "8080:3000"
 
 volumes:
   postgresdata:
