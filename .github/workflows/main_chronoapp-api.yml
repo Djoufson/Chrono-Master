@@ -27,8 +27,7 @@ jobs:
 
       - name: dotnet publish
         run: 
-          cd src/api/WebApi \
-          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp src/api/WebApi/WebApi.csproj
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
